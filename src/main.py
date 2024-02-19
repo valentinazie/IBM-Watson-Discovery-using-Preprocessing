@@ -32,9 +32,10 @@ def get_output(raw_data: Dict) -> List[Dict]:
     return result
 
 
-
 if __name__ == '__main__':
     wd_raw_data = fetch_discovery_data()
     utilities.save_json(wd_raw_data, config.RAW_JSON_PATH)
     result_bf_json = get_output(wd_raw_data)
     utilities.save_json(result_bf_json, config.REFORMATTED_JSON_PATH)
+    elastic_bulk = reformatting.elastic_search_formatting(result_bf_json, config.index_name)
+    utilities.save_bulk(elastic_bulk, config.ELASTIC_JSON_PATH)

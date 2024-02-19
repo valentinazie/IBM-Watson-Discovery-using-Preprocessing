@@ -11,3 +11,14 @@ def save_json(data: Dict, file_path: str) -> None:
     """
     with open(file_path, 'w', encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False, indent='\t')
+
+def save_bulk(data: List[Dict], file_path: str) -> None:
+    """
+    Save a list of dictionaries to a JSON file.
+
+    Parameters:
+    data (list): List of dictionaries to be saved.
+    file_path (str): Path to the file where data should be saved.
+    """
+    with open(file_path, 'w', encoding='utf-8') as file:
+        json.dump(data, file, ensure_ascii=False, indent='\t')

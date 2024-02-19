@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import logging
+import json
 
 def html_extract(json_result):
     """
@@ -70,3 +71,12 @@ def reformat_contents(contents_ordered):
         sections.append({**context, 'text': current_text})
 
     return sections
+
+def elastic_search_formatting(formatted_results, index_name):
+    transformed_data = []
+    for item in formatted_results:
+        index_metadata = {"index": {"_index": index_name}}
+        transformed_data.append(index_metadata)
+        transformed_data.append(item)
+    ndjson_formatted_documents = '\n'.join(json.dumps(doc) for doc in transformed_data) + '\n'
+    return ndjson_formatted_documents
